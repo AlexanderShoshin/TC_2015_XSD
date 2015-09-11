@@ -10,34 +10,26 @@
 	</xs:complexType>
 	
 	<xs:complexType name="fileStructureType">
-		<xs:complexContent>
-			<xs:extension base="commonStructureType">
-				<xs:sequence>
-					<xs:element name="uncompressedSrcName" type="xs:string" />
-					<xs:element name="compressedSrcName" type="xs:string" minOccurs="0" />
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
+		<xs:all>
+			<xs:element name="id" type="xs:string" />
+			<xs:element name="basePath" type="xs:string" minOccurs="0" />
+			<xs:element name="outputPath" type="xs:string" minOccurs="0" />
+			<xs:element name="compressionLevel" type="compressionType" minOccurs="0" />
+			<xs:element name="dependencies" type="dependenciesType" minOccurs="0" />
+			<xs:element name="uncompressedSrcName" type="xs:string" />
+			<xs:element name="compressedSrcName" type="xs:string" minOccurs="0" />
+		</xs:all>
 	</xs:complexType>
 	
 	<xs:complexType name="moduleStructureType">
-		<xs:complexContent>
-			<xs:extension base="commonStructureType">
-				<xs:sequence>
-					<xs:element name="files" type="fileType" />
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-	
-	<xs:complexType name="commonStructureType">
-		<xs:sequence>
+		<xs:all>
 			<xs:element name="id" type="xs:string" />
 			<xs:element name="basePath" type="xs:string" minOccurs="0" />
 			<xs:element name="outputPath" type="xs:string" minOccurs="0" />
 			<xs:element name="compressionLevel" type="xs:string" minOccurs="0" />
 			<xs:element name="dependencies" type="dependenciesType" minOccurs="0" />
-		</xs:sequence> 
+			<xs:element name="files" type="fileType" />
+		</xs:all>
 	</xs:complexType>
 	
 	<xs:complexType name="dependenciesType">
