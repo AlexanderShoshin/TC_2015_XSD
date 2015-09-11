@@ -1,46 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<xs:element name="packJSStructure" type="packJSType" />
-	
-	<xs:complexType name="packJSType">
-		<xs:choice minOccurs="0" maxOccurs="unbounded">
-			<xs:element name="file" type="fileStructureType" />
-			<xs:element name="module" type="moduleStructureType" />
-		</xs:choice>
-	</xs:complexType>
+	<xs:element name="packJSStructure">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="file" type="fileStructureType" />
+				<xs:element name="module" type="moduleStructureType" />
+			</xs:choice>
+		</xs:complexType>
+		
+		<xs:key name="idKey">
+			<xs:selector xpath="file | module" />
+			<xs:field xpath="id" />
+		</xs:key>
+		
+		<xs:keyref name="dependencyKeyref" refer="idKey">
+			<xs:selector xpath="file/dependencies/dependency | module/dependencies/dependency" />
+			<xs:field xpath="." />
+		</xs:keyref>
+	</xs:element>
 	
 	<xs:complexType name="fileStructureType">
-		<xs:all>
-			<xs:element name="id" type="xs:string" />
-			<xs:element name="basePath" type="xs:string" minOccurs="0" />
-			<xs:element name="outputPath" type="xs:string" minOccurs="0" />
-			<xs:element name="compressionLevel" type="compressionType" minOccurs="0" />
-			<xs:element name="dependencies" type="dependenciesType" minOccurs="0" />
-			<xs:element name="uncompressedSrcName" type="xs:string" />
-			<xs:element name="compressedSrcName" type="xs:string" minOccurs="0" />
-		</xs:all>
+		<xs:complexContent>
+				<xs:extension base="unitType">
+					<xs:sequence>
+						<xs:element name="uncompressedSrcName" type="fileType" />
+						<xs:element name="compressedSrcName" type="fileType" minOccurs="0" />
+					</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
 	</xs:complexType>
 	
 	<xs:complexType name="moduleStructureType">
-		<xs:all>
-			<xs:element name="id" type="xs:string" />
-			<xs:element name="basePath" type="xs:string" minOccurs="0" />
-			<xs:element name="outputPath" type="xs:string" minOccurs="0" />
-			<xs:element name="compressionLevel" type="xs:string" minOccurs="0" />
-			<xs:element name="dependencies" type="dependenciesType" minOccurs="0" />
-			<xs:element name="files" type="fileType" />
-		</xs:all>
+		<xs:complexContent>
+			<xs:extension base="unitType">
+				<xs:sequence>
+					<xs:element name="files" type="filesType" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
 	</xs:complexType>
 	
-	<xs:complexType name="dependenciesType">
+	<xs:complexType name="unitType">
 		<xs:sequence>
-			<xs:element name="dependency" type="xs:string" maxOccurs="unbounded" />
+			<xs:element name="id" type="idType" />
+			<xs:element name="basePath" type="pathType" minOccurs="0" />
+			<xs:element name="outputPath" type="pathType" minOccurs="0" />
+			<xs:element name="compressionLevel" type="compressionType" minOccurs="0" />
+			<xs:element ref="dependencies" minOccurs="0" />	
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="filesType">
+		<xs:sequence>
+			<xs:element name="file" type="fileType" maxOccurs="unbounded" />
 		</xs:sequence> 
 	</xs:complexType>
 	
-	<xs:complexType name="fileType">
-		<xs:sequence>
-			<xs:element name="file" type="xs:string" maxOccurs="unbounded" />
-		</xs:sequence> 
-	</xs:complexType>
+	<xs:element name="dependencies">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="dependency" type="xs:string" maxOccurs="unbounded" />
+			</xs:sequence> 
+		</xs:complexType>
+		
+		<xs:key name="dependencyKey">
+			<xs:selector xpath="dependency" />
+			<xs:field xpath="." />
+		</xs:key>
+	</xs:element>
+	
+	<xs:simpleType name="fileType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([a-zA-Z0-9~!@#$%^();,.'=/-])*[.]js" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="idType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([a-zA-Z0-9-])*" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="pathType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([a-zA-Z0-9~!@#$%^();,.'=/-])*" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="compressionType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[wW][hH][iI][tT][eE][sS][pP][aA][cC][eE][_][oO][nN][lL][yY]" />
+			<xs:pattern value="[wW][hH][iI][tT][eE][sS][pP][aA][cC][eE]" />
+			<xs:pattern value="[sS][iI][mM][pP][lL][eE][_][oO][pP][tT][iI][mM][iI][zZ][aA][tT][iI][oO][nN][sS]" />
+			<xs:pattern value="[sS][iI][mM][pP][lL][eE]" />
+			<xs:pattern value="[oO][pP][tT][iI][mM][iI][zZ][aA][tT][iI][oO][nN][_][aA][dD][vV][aA][nN][cC][eE][dD]" />
+			<xs:pattern value="[aA][dD][vV][aA][nN][cC][eE][dD][_][oO][pP][tT][iI][mM][iI][zZ][aA][tT][iI][oO][nN][sS]" />
+			<xs:pattern value="[nN][oO][nN][eE]" />
+			<xs:pattern value="[aA][dD][vV][aA][nN][cC][eE][dD]" />
+		</xs:restriction>
+	</xs:simpleType>
 </xs:schema>

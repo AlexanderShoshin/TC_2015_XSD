@@ -1,34 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packJSStructure>
 	<file>
-		<id>aA-1</id>
-		<basePath>asdasd</basePath>
-		<outputPath>sadasd</outputPath>
-		<compressionLevel>WHITESPACE_only</compressionLevel>
+		<id>jquery-ui</id>
+		<basePath>jquery/ui</basePath>
+		<outputPath>jquery</outputPath>
+		<compressionLevel>ADVANCED_OPTIMIZATIONS</compressionLevel>
 		<dependencies>
-			<dependency>fff</dependency>
-			<dependency>sss</dependency>
-			<dependency>aaa</dependency>
+			<dependency>bignumber</dependency>
 		</dependencies>
-		
-		<uncompressedSrcName></uncompressedSrcName>
-		<compressedSrcName></compressedSrcName>
+		<uncompressedSrcName>jquery-ui-1.8.11.custom.js</uncompressedSrcName>
+		<compressedSrcName>jquery-ui-1.8.11.custom.min.js</compressedSrcName>
+	</file>
+	<file>
+		<id>jquery-base</id>
+		<uncompressedSrcName>jquery-1.6.2.js</uncompressedSrcName>
 	</file>
 	<module>
-		<id>bB-1</id>
-		<basePath>asdasd</basePath>
-		<outputPath>asdasd</outputPath>
-		<compressionLevel>optimization_ADVANCED</compressionLevel>
+		<id>jquery-plugins</id>
+		<basePath>jquery/plugin</basePath>
+		<outputPath>jquery</outputPath>
+		<compressionLevel>none</compressionLevel>
 		<dependencies>
-			<dependency>ff</dependency>
-			<dependency>aa</dependency>
-			<dependency>sss</dependency>
+			<dependency>jquery-base</dependency>
+			<dependency>jquery-ui</dependency>
 		</dependencies>
-		
 		<files>
-			<file>ff</file>
-			<file>rrr</file>
-			<file>tttt</file>
+			<file>jquery.tmpl.min.js</file>
+			<file>jquery.cookie.min.js</file>
+			<file>jquery.numberformatter.min.js</file>
+			<file>jquery.form.min.js</file>
+			<file>jquery.blockUI.min.js</file>
 		</files>
 	</module>
+	<file>
+		<id>bignumber</id>
+		<basePath>adsalespro/util/bignumber</basePath>
+		<compressionLevel>none</compressionLevel>
+		<uncompressedSrcName>bignumber.js</uncompressedSrcName>
+	</file>
 </packJSStructure>
