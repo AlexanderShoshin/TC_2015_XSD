@@ -24,6 +24,16 @@
 		</xs:unique>
 	</xs:element>
 	
+	<xs:complexType name="unitType">
+		<xs:sequence>
+			<xs:element name="id" type="idType" />
+			<xs:element name="basePath" type="pathType" minOccurs="0" />
+			<xs:element name="outputPath" type="pathType" minOccurs="0" />
+			<xs:element name="compressionLevel" type="compressionType" minOccurs="0" />
+			<xs:element ref="dependencies" minOccurs="0" />	
+		</xs:sequence>
+	</xs:complexType>
+	
 	<xs:complexType name="fileStructureType">
 		<xs:complexContent>
 				<xs:extension base="unitType">
@@ -43,16 +53,6 @@
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
-	</xs:complexType>
-	
-	<xs:complexType name="unitType">
-		<xs:sequence>
-			<xs:element name="id" type="idType" />
-			<xs:element name="basePath" type="pathType" minOccurs="0" />
-			<xs:element name="outputPath" type="pathType" minOccurs="0" />
-			<xs:element name="compressionLevel" type="compressionType" minOccurs="0" />
-			<xs:element ref="dependencies" minOccurs="0" />	
-		</xs:sequence>
 	</xs:complexType>
 	
 	<xs:complexType name="filesType">
