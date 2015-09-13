@@ -36,11 +36,11 @@
 	
 	<xs:complexType name="fileStructureType">
 		<xs:complexContent>
-				<xs:extension base="unitType">
-					<xs:sequence>
-						<xs:element name="uncompressedSrcName" type="jsFileType" />
-						<xs:element name="compressedSrcName" type="jsFileType" minOccurs="0" />
-					</xs:sequence>
+			<xs:extension base="unitType">
+				<xs:sequence>
+					<xs:element name="uncompressedSrcName" type="jsFileType" />
+					<xs:element name="compressedSrcName" type="jsFileType" minOccurs="0" />
+				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -76,14 +76,13 @@
 	
 	<xs:simpleType name="jsFileType">
 		<xs:restriction base="xs:string">
-			<xs:pattern value="([a-zA-Z0-9~!@#$%^();,.'=/-])*[.]js" />
+			<xs:pattern value="([a-zA-Z0-9~!@#$%^();,.'=/-])+[.]js" />
 		</xs:restriction>
 	</xs:simpleType>
 	
 	<xs:simpleType name="idType">
 		<xs:restriction base="xs:string">
-			<xs:minLength value="1" />
-			<xs:pattern value="([a-zA-Z0-9-])*" />
+			<xs:pattern value="([a-zA-Z0-9-])+" />
 		</xs:restriction>
 	</xs:simpleType>
 	
