@@ -17,6 +17,11 @@
 			<xs:selector xpath="file/dependencies/dependency | module/dependencies/dependency" />
 			<xs:field xpath="." />
 		</xs:keyref>
+		
+		<xs:unique name="fileUnique">
+			<xs:selector xpath="file/uncompressedSrcName | file/compressedSrcName | module/files/file" />
+			<xs:field xpath="." />
+		</xs:unique>
 	</xs:element>
 	
 	<xs:complexType name="fileStructureType">
