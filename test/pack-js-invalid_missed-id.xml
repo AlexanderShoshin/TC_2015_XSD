@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packJSStructure>
+	<file>
+		<uncompressedSrcName>jquery-ui-1.8.11.custom.js</uncompressedSrcName>
+	</file>
+	<module>
+		<id>jquery-plugins</id>
+		<files>
+			<file>jquery.tmpl.min.js</file>
+		</files>
+	</module>
+</packJSStructure>
